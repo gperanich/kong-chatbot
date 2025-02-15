@@ -8,7 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@kong/kongponents": "^9.18.4",
+    "axios": "^1.7.9",
     "core-js": "^3.8.3",
+    "performance": "^1.4.0",
     "vue": "^3.2.13"
   },
   "devDependencies": {
@@ -18,7 +21,8 @@
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "eslint-plugin-vue": "^8.0.3",
+    "postcss-custom-properties": "^14.0.4"
   },
   "eslintConfig": {
     "root": true,

@@ -1,15 +1,18 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <img class="kong-logo" alt="Vue logo" src="./assets/konglogo.png">
+  <h1>Kong Chatbot</h1>
+  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+   <ChatBot/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
+import ChatBot from './components/ChatBot.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ChatBot
   }
 }
 </script>
@@ -22,5 +25,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.kong-logo {
+  height: 200px;
 }
 </style>

@@ -1,0 +1,105 @@
+_format_version: "3.0"
+_info:
+  select_tags:
+  - ai-gw-workshop
+services:
+- name: ai-gw
+  url: https://httpbin.konghq.com/anything
+  routes:
+  - name: chat
+    paths:
+    - /v1/chat/completions
+    plugins:
+    - name: ai-proxy-advanced
+      config:
+        balancer:
+          algorithm: "round-robin"
+          tokens_count_strategy: "total-tokens"
+          latency_strategy: "tpot"
+          retries: 3
+        targets:
+        - route_type: "llm/v1/chat"
+          auth:
+            header_name: "testing"
+            header_value: "true"
+          logging:
+            log_statistics: false
+            log_payloads: false
+          model:
+            provider: "llama2"
+            name: "qwen2.5:0.5b-instruct"
+            options:
+              temperature: 0.5
+              upstream_url: http://llm.llm.svc:8000/api/chat
+              llama2_format: ollama
+    
+    - name: ai-prompt-decorator
+      config:
+        prompts:
+          prepend:
+          - role: "system"
+            content: "You will respond in two sentences."
+
+    - name: ai-semantic-cache
+      config:
+        message_countback: 3
+        ignore_system_prompts: true
+        ignore_assistant_prompts: true
+        stop_on_failure: true
+        embeddings:
+          auth:
+            header_name: test
+            header_value: "true"
+          model:
+            provider: "openai"
+            name: "nomic-embed-text"
+            options:
+              upstream_url: http://embeddings.llm.svc:8000/v1/embeddings           
+        vectordb:
+          strategy: "redis"
+          dimensions: 768
+          distance_metric: "cosine"
+          threshold: 0.1
+          redis:
+            host: redis.redis.svc
+            port: 6379
+
+    - name: ai-semantic-prompt-guard
+      config:
+        embeddings:
+          auth:
+            header_name: test
+            header_value: "true"
+          model:
+            provider: "openai"
+            name: "nomic-embed-text"
+            options:
+              upstream_url: http://embeddings.llm.svc:8000/v1/embeddings           
+        vectordb:
+          strategy: "redis"
+          dimensions: 768
+          distance_metric: "cosine"
+          threshold: 0.5
+          redis:
+            host: redis.redis.svc
+            port: 6379
+        search:
+          threshold: 0.5
+        rules:
+          deny_prompts:
+            - hijacking an LLM prompt
+            - what things or events happened at sales kickoff or SKO
+    - name: cors
+      config:
+        methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+        - HEAD
+        - PATCH
+        - TRACE
+        - CONNECT
+        origins:
+        - '*'
