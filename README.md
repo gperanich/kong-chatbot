@@ -50,7 +50,7 @@ This script will:
 
 Ensure you have the necessary TLS certificate and key files (`tls.crt` and `tls.key`) in the appropriate directory before running the setup script.
 
-## Start Kong ChatBot
+## Start ChatBot
 
 ## Project setup
 ```
