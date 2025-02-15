@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="chat-input">
-      <KInput v-model="newMessage" placeholder="Type your message here..." />
-      <KButton appearance="primary" @click="sendMessage">Send</KButton>
+      <KInput v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type your message here..." />
+      <KButton size="large" appearance="primary" @click="sendMessage">Send</KButton>
     </div>
     <div v-if="showAlert">
       <KAlert
@@ -127,6 +127,12 @@ export default {
 .chat-input {
   display: flex;
   align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 200px;
+  right: 200px;
+  bottom: 50px;
+  padding: 0 200px;
 }
 
 .chat-input KInput {

@@ -1,12 +1,10 @@
 <template>
   <img class="kong-logo" alt="Vue logo" src="./assets/konglogo.png">
   <h1>Kong Chatbot</h1>
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
    <ChatBot/>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import ChatBot from './components/ChatBot.vue'
 
 export default {
